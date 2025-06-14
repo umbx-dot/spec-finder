@@ -1,16 +1,16 @@
 # SpecFinder
 
-This is a moduralized SpecFinder made by notidom.
+This is a moduralized SpecFinder made by notidom under the MIT license.
 
 ## Features
 
-- **Multithreaded**: 
-- **Modular Code**: 
-- **System Info**: 
-- **Hardware**: 
-- **Storage**: 
-- **Network**: 
-- **Cross-platform**: 
+- **Multithreaded**
+- **Modular Code**
+- **System Info**
+- **Hardware**
+- **Storage**
+- **Network**
+- **Cross-platform**
 
 ## Project Structure
 
