@@ -32,24 +32,31 @@ specfinder/
 
 ## Installation
 
-Install dependencies:
+1. Clone the repository:
+```bash
+git clone https://github.com/umbx-dot/spec-finder.git
+```
 
+2. Navigate to the project directory:
+```bash
+cd spec-finder
+```
+
+3. Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
 ## Usage
 
-Run the script
+Run the script:
 
 ```bash
 python main.py
 ```
 
-
 ## Compatibility
 
-- ✅ Windows 10/11
-- ✅ Linux (Ubuntu, Debian, Arch, etc.)  
-- ✅ macOS 
-
+- ✅ Windows 
+- ✅ Linux   
+- ✅ macOS
