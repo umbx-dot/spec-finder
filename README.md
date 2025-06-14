@@ -57,6 +57,6 @@ python main.py
 
 ## Compatibility
 
-- ✅ Windows 
-- ✅ Linux   
-- ✅ macOS
+- ✅ Mainly for Windows 10/11
+- ✅ LIMITED Linux   
+- ✅ LIMITED macOS
