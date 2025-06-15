@@ -1,7 +1,6 @@
 import platform
 import subprocess
 import requests
-import speedtest
 
 def get_public_ip():
     try:
@@ -22,43 +21,46 @@ def get_country(ip):
     except:
         return "Unknown"
 
-def get_internet_speed():
-    try:
-        st = speedtest.Speedtest()
-        st.get_best_server()
-        download_speed = st.download() / 1_000_000
-        upload_speed = st.upload() / 1_000_000
-        return f"Down: {download_speed:.1f} Mbps, Up: {upload_speed:.1f} Mbps"
-    except Exception as e:
-        return f"Test failed: {str(e)}"
-
 def get_ping():
     try:
         if platform.system() == "Windows":
             result = subprocess.run(
                 ["ping", "-n", "1", "8.8.8.8"], 
                 capture_output=True, 
-                text=True, 
                 timeout=10,
-                encoding='utf-8',
-                errors='replace'
+                creationflags=subprocess.CREATE_NO_WINDOW
             )
-            if result.returncode == 0 and "time=" in result.stdout:
-                return result.stdout.split("time=")[1].split("ms")[0] + "ms"
+            if result.returncode == 0 and result.stdout:
+                output = result.stdout.decode('cp1252', errors='ignore')
+                lines = output.split('\n')
+                for line in lines:
+                    if "Zeit=" in line or "time=" in line:
+                        try:
+                            if "Zeit=" in line:
+                                time_part = line.split("Zeit=")[1].split("ms")[0].strip()
+                            else:
+                                time_part = line.split("time=")[1].split("ms")[0].strip()
+                            return time_part + "ms"
+                        except:
+                            continue
         else:
             result = subprocess.run(
                 ["ping", "-c", "1", "8.8.8.8"], 
                 capture_output=True, 
                 text=True, 
-                timeout=10,
-                encoding='utf-8',
-                errors='replace'
+                timeout=10
             )
-            if result.returncode == 0 and "time=" in result.stdout:
-                return result.stdout.split("time=")[1].split(" ms")[0] + "ms"
+            if result.returncode == 0 and result.stdout and "time=" in result.stdout:
+                try:
+                    time_part = result.stdout.split("time=")[1].split(" ms")[0]
+                    return time_part + "ms"
+                except:
+                    pass
+        return "No response"
+    except subprocess.TimeoutExpired:
         return "Timeout"
-    except Exception as e:
-        return f"Failed: {str(e)}"
+    except Exception:
+        return "Failed"
 
 def get_network_info():
     try:
@@ -67,7 +69,6 @@ def get_network_info():
         return {
             "Public IP": public_ip,
             "Location": get_country(public_ip),
-            "Internet Speed": get_internet_speed(),
             "Ping (Google DNS)": get_ping()
         }
     except Exception as e:
