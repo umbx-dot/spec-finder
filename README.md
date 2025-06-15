@@ -8,7 +8,6 @@ This is a moduralized SpecFinder made by notidom under the MIT license.
 - **Modular Code**
 - **System Info**
 - **Hardware**
-- **Storage**
 - **Network**
 - **Cross-platform**
 
@@ -25,7 +24,6 @@ specfinder/
 │   ├── memory_info.py   # RAM and swap memory
 │   ├── gpu_info.py      # Graphics card details
 │   ├── network_info.py  # Network and internet info
-│   ├── storage_info.py  # Disk usage information
 │   └── misc_info.py     # Python version, user, monitors
 └── README.md
 ```
